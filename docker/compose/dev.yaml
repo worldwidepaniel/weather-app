@@ -1,0 +1,27 @@
+version: '3.3'
+services:
+  golang:
+    image: "weather-app"
+    ports:
+      - 8080:8080
+    container_name: goAPI
+  mongol_db:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27010:27017
+    container_name: MongolDB
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongol_db:27017/
+    container_name: ExpressMongo
